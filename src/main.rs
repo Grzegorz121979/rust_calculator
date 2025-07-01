@@ -5,22 +5,22 @@ fn round_number(value: f64, decimal_places: u32) -> f64 {
     (value * multiplier).round() / multiplier
 }
 
-fn main() {
+fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut number_one = String::new();
     let mut number_two = String::new();
     let mut user = String::new();
 
     println!("addition (+), subtraction (-), multiplication (*), division (/)");
-    io::stdin().read_line(&mut user).unwrap();
+    io::stdin().read_line(&mut user)?;
     let user: &str = &user.trim();
 
     println!("Enter number one:");
-    io::stdin().read_line(&mut number_one).unwrap();
-    let one: f64 = number_one.trim().parse().unwrap();
+    io::stdin().read_line(&mut number_one)?;
+    let one = number_one.trim().parse::<f64>()?;
 
     println!("Enter number two:");
-    io::stdin().read_line(&mut number_two).unwrap();
-    let two: f64 = number_two.trim().parse().unwrap();
+    io::stdin().read_line(&mut number_two)?;
+    let two = number_two.trim().parse::<f64>()?;
 
     match user {
         "+" => {
@@ -45,4 +45,6 @@ fn main() {
         }
         _ => println!("Error"),
     }
+    
+    Ok(())
 }
